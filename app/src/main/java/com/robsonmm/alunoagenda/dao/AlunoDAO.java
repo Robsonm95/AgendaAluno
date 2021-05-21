@@ -8,7 +8,8 @@ import java.util.List;
 public class AlunoDAO {
 
     private final static List<Aluno> alunos = new ArrayList<>();
-    public void salva(Aluno aluno) {
+
+    public void save(Aluno aluno) {
         alunos.add(aluno);
     }
 
