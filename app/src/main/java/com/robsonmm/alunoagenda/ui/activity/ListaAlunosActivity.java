@@ -7,7 +7,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.robsonmm.alunoagenda.R;
 import com.robsonmm.alunoagenda.dao.AlunoDAO;
 import com.robsonmm.alunoagenda.model.Aluno;
-
-import java.util.List;
+import com.robsonmm.alunoagenda.ui.adapter.ListaAlunosAdapter;
 
 import static com.robsonmm.alunoagenda.ui.activity.ConstantesActivities.CHAVE_ALUNO;
 
@@ -27,7 +25,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Lista de Alunos";
     private final AlunoDAO dao = new AlunoDAO();
-    private ArrayAdapter<Aluno> adapter;
+    private ListaAlunosAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +54,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         if (itemId == R.id.activity_lista_alunos_menu_remover) {
             AdapterView.AdapterContextMenuInfo menuInfo =
                     (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Aluno alunoSelecionado = (Aluno) adapter.getItem(menuInfo.position);
+            Aluno alunoSelecionado = adapter.getItem(menuInfo.position);
             dao.remove(alunoSelecionado);
             adapter.remove(alunoSelecionado);
         }
@@ -81,8 +79,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.clear();
-        adapter.addAll(dao.listAll());
+        adapter.atualiza(dao.listAll());
     }
 
     private void configurarLista() {
@@ -110,9 +107,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     private void configuraAdapter(ListView listaDeAlunos) {
-        adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1);
+        adapter = new ListaAlunosAdapter(this);
         listaDeAlunos.setAdapter(adapter);
     }
 }
