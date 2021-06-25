@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AlunoAgenda</string>
+    <string name="nome">Nome</string>
+    <string name="telefone">Telefone</string>
+    <string name="e_mail">E-mail</string>
+    <string name="salvar_aluno">Salvar Aluno</string>
+    <string name="lista_de_alunos">Lista de Alunos</string>
+    <string name="remover">Remover</string>
 </resources>
